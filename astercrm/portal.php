@@ -88,6 +88,7 @@
 ********************************************************************************/
 require_once('config.php');
 require_once('portal.common.php');
+
 //get post parm
 $clientDst = $_REQUEST['clientdst'];
 ?>
@@ -337,13 +338,13 @@ $clientDst = $_REQUEST['clientdst'];
 		}
 
 		function transfer(target){
-			if (target == ''){
-				if (xajax.$("iptTtansfer").value != ''){
+			if (target == '') {
+				if (xajax.$("iptTtansfer").value != '') {
 					target = xajax.$("iptTtansfer").value;
-				}else{
+				} else {
 					target = xajax.$("sltExten").value;
 				}
-			}else{
+			} else {
 				xajax.$("iptTtansfer").value = target;
 			}
 
@@ -840,11 +841,8 @@ $clientDst = $_REQUEST['clientdst'];
 
 		</script>
 <?php
-if ($config['system']['enable_external_crm'] == false && $config['google-map']['key'] != ''){
-	if($_SESSION['curuser']['country'] == 'cn') 
-		$map_locate = 'ditu';
-	else
-		$map_locate = 'maps';
+if ($config['system']['enable_external_crm'] == false && $config['google-map']['key'] != '') {
+    $map_locate = 'maps';
 ?>
 	<script src="http://<?php echo $map_locate;?>.google.com/maps?file=api&v=2&key=<?php echo $config['google-map']['key'];?>" type="text/javascript"></script>
 <?php
@@ -856,6 +854,7 @@ if ($config['system']['enable_external_crm'] == false && $config['google-map']['
 		<div>
             <span id="divUserMsg" name="divUserMsg"></span>&nbsp;&nbsp;&nbsp;
             <span id="myevents"></span>&nbsp;&nbsp;&nbsp;
+            
             <span>
                 <input type="button" value="<?php echo $locate->Translate("Hangup")?>" name="btnHangup" id="btnHangup" onclick="hangup();" disabled="true">&nbsp;&nbsp;&nbsp;
                 <input type="button" value="<?php echo $locate->Translate("Clear Screen")?>" onclick="javascript:xajax_clearPopup(); clearTimeout(popupToclear);">
@@ -865,8 +864,14 @@ if ($config['system']['enable_external_crm'] == false && $config['google-map']['
         <br/>
 		
 		<div id="divHangup" name="divHangup">
-			<!--&nbsp;&nbsp;&nbsp;<span id="spnPause"><input type="button" value="<?php echo $locate->Translate("Break")?>" name="btnPause" id="btnPause" onclick="queuePaused();" ></span><input id="clkPauseTime" name="clkPauseTime" type="hidden">
-			<span id="agentData"></span>-->
+			<!--
+            &nbsp;&nbsp;&nbsp;
+            <span id="spnPause">
+                <input type="button" value="<?php echo $locate->Translate("Break")?>" name="btnPause" id="btnPause" onclick="queuePaused();" >
+            </span>
+            <input id="clkPauseTime" name="clkPauseTime" type="hidden">
+			<span id="agentData"></span>
+            -->
 			
 			<div id="divTrunkinfo" name="divTrunkinfo"></div>
 			<div id="divDIDinfo" name="divDIDinfo"></div>
@@ -888,7 +893,7 @@ if ($config['system']['enable_external_crm'] == false && $config['google-map']['
 
 		<div id="divMonitor"><br/>
 			<span id="monitorTitle"><?php echo $locate->Translate("monitor")?> : </span>
-			<span id="spanMonitorStatus" name="spanMonitorStatus"></span>
+			<span id="spanMonitorStatus" name="spanMonitorStatus">&nbsp;</span>
 			<input type='button' value='' name="btnMonitor" id="btnMonitor" onclick="monitor();return false;">
 			<input type='hidden' value='' name="btnMonitorStatus" id="btnMonitorStatus">
 			<input type='checkbox' name='chkMonitor' id="chkMonitor">
