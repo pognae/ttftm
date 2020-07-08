@@ -48,9 +48,10 @@ header('Pragma: no-cache');
 session_cache_limiter('public, no-store');
 
 session_set_cookie_params(0);
-if (!session_id()) session_start();
+if (!session_id()) {
+	session_start();
+}
 setcookie('PHPSESSID', session_id());
-
 
 if ( $_SESSION['curuser']['usertype'] != 'admin' && $_SESSION['curuser']['usertype'] != 'groupadmin' && !is_array($_SESSION['curuser']['privileges']['diallist'])) 
 	header("Location: portal.php");

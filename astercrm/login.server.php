@@ -1,7 +1,6 @@
 <?php
 /*******************************************************************************
 * login.server.php
-* 用户登入程序文件
 * user login function page
 
 * Public Functions List
@@ -13,24 +12,8 @@
 * Revision 0.0456  2007/11/12 10:49:00  modified by solo
 * Desc: add $_SESSION['curuser']['channel'], $_SESSION['curuser']['accountcode']
 
-* Revision 0.045  2007/10/8 14:21:00  modified by solo
-* Desc: add string check
-
-* Revision 0.044  2007/09/10 14:21:00  modified by solo
-* Desc: add $_SESSION['curuser']['usertype'] to save user type: admin | user
-* 描述: 增加了保存用户权限的变量: admin | user, 保存在变量$_SESSION['curuser']['usertype']
-
-
-* Revision 0.044  2007/09/7 19:55:00  modified by solo
-* Desc: modify function init, use unset() to clean session, which means everytime user visit login page, he will log out automaticly
-* 描述: 修改了init函数, 使用 unset() 函数清除session, 每当用户访问login时, 都会视为自动登出
-
-* Revision 0.044  2007/09/7 17:55:00  modified by solo
-* Desc: add some comments
-* 描述: 增加了一些注释信息
-
-
 ********************************************************************************/
+
 require_once ("login.common.php");
 require_once ("db_connect.php");
 require_once ('include/asterisk.class.php');
@@ -51,17 +34,27 @@ function processForm($aFormValues)
 {
 	global $locate;
 	$objResponse = new xajaxResponse();
+
+	//echo $_SESSION['curuser']['country'];
+	//echo $_SESSION['curuser']['language'];
+//    echo $aFormValues;
+//    echo split ("_", $aFormValues['locate']);
+//    return;
+
 	list ($_SESSION['curuser']['country'],$_SESSION['curuser']['language']) = split ("_", $aFormValues['locate']);
 	
 	//get locate parameter
 	$locate=new Localization($_SESSION['curuser']['country'],$_SESSION['curuser']['language'],'login');			//init localization class
 
-	if (trim($aFormValues['username']) == "")
-	{
+//    echo $aFormValues['locate'];
+//    return;
+
+	if (trim($aFormValues['username']) == "") {
 		$objResponse->addAlert($locate->Translate("Username cannot be blank"));
 		$objResponse->addScript('init();');
 		return $objResponse;
 	}
+
 	if (trim($aFormValues['password']) == "")
 	{
 		$objResponse->addAlert($locate->Translate("Password cannot be blank"));
@@ -81,7 +74,6 @@ function processForm($aFormValues)
 			$objResponse->addScript('init();');
 			return $objResponse;
 		}
-
 	} else {
 		$objResponse = new xajaxResponse();
 		return $objResponse;
@@ -117,6 +109,8 @@ function init($aFormValue){
 	list($_SESSION['curuser']['country'],$_SESSION['curuser']['language']) = split ("_", $language);	
 	
 	//get locate parameter
+    echo $_SESSION['curuser']['country'];
+    echo $_SESSION['curuser']['language'];
 	$locate=new Localization($_SESSION['curuser']['country'],$_SESSION['curuser']['language'],'login');			//init localization class
 
 	$login_div = '<img src="skin/default/images_'.$_SESSION['curuser']['country'].'/login.gif" onclick="document.getElementById(\'loginForm\').submit();" />';//onclick="form.submit(\'loginForm\');"
@@ -149,7 +143,6 @@ function init($aFormValue){
 	$objResponse->addAssign("rememberme","checked",$checked);
 	$objResponse->addAssign("locate","value",$language);
 
-	/* --------------------- 计算用户在线时间 ------------------------*/
 	if(!empty($_SESSION['curuser'])) {
 		$identity = astercrm::calculateAgentOntime('logout',$_SESSION['curuser']['username']);
 		if($identity != '') {
@@ -160,8 +153,6 @@ function init($aFormValue){
 		unset($_SESSION['curuser']);
 		unset($_SESSION['status']);
 	}
-
-	
 
 	return $objResponse;
 }

@@ -12,18 +12,17 @@ $clientLang = $_GET['locate'];
 		<meta http-equiv="content-type" content="text/html;charset=utf-8">
 		<?php $xajax->printJavascript('include/'); ?>
 
-	<script type="text/javascript" src="js/astercrm.js"></script>
-	<script type="text/javascript" src="js/dragresize.js"></script>
-	<script type="text/javascript" src="js/dragresizeInit.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
-	<script language="JavaScript" src="js/dhtmlgoodies_calendar.js"></script>
-	<LINK href="js/dhtmlgoodies_calendar.css" type=text/css rel=stylesheet>
-	<LINK href="skin/default/css/dragresize.css" type=text/css rel=stylesheet>
-	<LINK href="skin/default/css/style.css" type=text/css rel=stylesheet>
+        <script type="text/javascript" src="js/astercrm.js"></script>
+        <script type="text/javascript" src="js/dragresize.js"></script>
+        <script type="text/javascript" src="js/dragresizeInit.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script language="JavaScript" src="js/dhtmlgoodies_calendar.js"></script>
+        <LINK href="js/dhtmlgoodies_calendar.css" type=text/css rel=stylesheet>
+        <LINK href="skin/default/css/dragresize.css" type=text/css rel=stylesheet>
+        <LINK href="skin/default/css/style.css" type=text/css rel=stylesheet>
 
 		<script type="text/javascript">
-
-		function hangup(){
+		function hangup() {
 			//alert (xajax.$('callerChannel').value);
 			//alert (xajax.$('calleeChannel').value);
 			callerChan = xajax.$('callerChannel').value;
@@ -107,25 +106,32 @@ $clientLang = $_GET['locate'];
 	</head>
 	<body onload="init();" style="PADDING-RIGHT: 5px;PADDING-LEFT: 5px;">
 	<form name="myForm" id="myForm">
-		<div><span id="myevents"></span>&nbsp;<input type="button" value="" id="btnShowPortal" name="btnShowPortal" onclick="showportal('');"></div>
+		<div>
+            <span id="myevents"></span>&nbsp;
+            <input type="button" value="" id="btnShowPortal" name="btnShowPortal" onclick="showportal('');">
+        </div>
 
 		<div id="divTrunkinfo" name="divTrunkinfo"></div>
 		<div id="divDIDinfo" name="divDIDinfo"></div>
+
 		<div id="divCallCtrl">
-		<input type="text" value="" name="iptSrcNumber" id="iptSrcNumber" size="10">&nbsp;>&nbsp;<SELECT id="iptDestNumber" name="iptDestNumber"></SELECT>&nbsp;	
-		<span id="spanCallCtrl" name="spanCallCtrl">
-			<input type="button" id="btnCallCtrl" name="btnCallCtrl" value="" onclick="invite();">
-		</span>
+		    <input type="text" value="" name="iptSrcNumber" id="iptSrcNumber" size="10">&nbsp;>&nbsp;
+            <SELECT id="iptDestNumber" name="iptDestNumber"></SELECT>&nbsp;
+            <span id="spanCallCtrl" name="spanCallCtrl">
+                <input type="button" id="btnCallCtrl" name="btnCallCtrl" value="" onclick="invite();">
+            </span>
 		</div>
+
 		<br>
+
 		<div id="divTransfer">
-		<span id="spanTransfer" name="spanTransfer">
-			<SELECT id="sltExten" name="sltExten">
-			</SELECT>
-			<INPUT TYPE="text" name="iptTtansfer" id="iptTtansfer" size="12">
-			<INPUT type="button" value="" id="btnTransfer" onclick="transfer();">
-		</span>
-		</div>		
+            <span id="spanTransfer" name="spanTransfer">
+                <SELECT id="sltExten" name="sltExten"></SELECT>
+                <INPUT TYPE="text" name="iptTtansfer" id="iptTtansfer" size="12">
+                <INPUT type="button" value="" id="btnTransfer" onclick="transfer();">
+            </span>
+		</div>
+
 		<input type="hidden" name="extensionStatus" id="extensionStatus" value=""/>
 		<input type="hidden" name="username" id="username" value=""/>
 		<input type="hidden" name="extension" id="extension" value=""/>

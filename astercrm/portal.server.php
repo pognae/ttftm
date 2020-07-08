@@ -150,7 +150,9 @@ function init(){
 	$objResponse = new xajaxResponse();
 
 	$check_interval = 2000;
-	if ( is_numeric($config['system']['status_check_interval']) ) $check_interval = $config['system']['status_check_interval'] * 1000;
+	if ( is_numeric($config['system']['status_check_interval']) ) {
+	    $check_interval = $config['system']['status_check_interval'] * 1000;
+    }
 
 	$objResponse->addAssign("checkInterval","value", $check_interval );
 
@@ -181,6 +183,7 @@ function init(){
 	$objResponse->addAssign("spanMonitorStatus","innerHTML", $locate->Translate("idle") );
 	$objResponse->addAssign("btnMonitorStatus","value", "idle" );
 	$objResponse->addAssign("btnMonitor","value", $locate->Translate("start_record") );
+
 	if($_SESSION['curuser']['WorkStatus'] == ''){
 		$objResponse->addAssign("btnWork","value", $locate->Translate("Start work") );
 		$objResponse->addAssign("btnWorkStatus","value", "" );
@@ -192,6 +195,7 @@ function init(){
 		$interval = $_SESSION['curuser']['dialinterval'];
 		$objResponse->addScript("autoDial('$interval');");
 	}
+
 	$objResponse->addAssign("btnMonitor","disabled", true );
 	$objResponse->addAssign("divCopyright","innerHTML",Common::generateCopyright($skin));
 
@@ -200,6 +204,7 @@ function init(){
 	}else{
 		$objResponse->addAssign("inviteFlag","innerHTML",'->');
 	}
+
 	//$objResponse->addAssign("divCopyright","innerHTML",Common::generateCopyright($skin));
 	if(strtoupper($config['system']['transfer_pannel']) == 'OFF'){		
 		$objResponse->addAssign("spanTransfer", "style.display", "none");		
@@ -221,8 +226,7 @@ function init(){
 	if(strtoupper($config['system']['mission_pannel']) == 'OFF' ){
 		$objResponse->addAssign("spanDialList", "style.display", "none");
 		$objResponse->addAssign("misson", "style.display", "none");
-			
-	}else{
+	} else {
 		$objResponse->loadXML(getPrivateDialListNumber($_SESSION['curuser']['extension']));
 	}
 
@@ -239,6 +243,7 @@ function init(){
 		$row = astercrm::getRecordByField('username',$extension,'astercrm_account');		
 		$objResponse->addScript("addOption('sltExten','".$row['extension']."','$extension');");
 	}
+
 	$speeddial = & Customer::getAllSpeedDialRecords();
 	$speednumber['0']['number'] = $_SESSION['curuser']['extension'];
 	$speednumber['0']['description'] = $_SESSION['curuser']['username'];
@@ -249,12 +254,15 @@ function init(){
 		$speednumber[$n]['number'] = $row['number'];
 		$n++;
 	}
+
 	$n = count($speednumber);
 	for ($i=0;$i<$n;++$i){
 		$objResponse->addScript("addOption('iptDestNumber','".$speednumber[$i]['number']."','".$speednumber[$i]['description']."-".$speednumber[$i]['number']."');");
 	}
 	
 	$curmsg = Customer::getTicketInWork();
+	
+	//메뉴
 	$panelHTML = '<a href=? onclick="showMyTickets(\'\',\'agent_tickets\');return false;">'.$locate->Translate("MyTickets")."</a><span id='curticketMsg'>".$curmsg.'</span><br/>';
 
 	if ($config['system']['display_recent_cdr'] == true && $_SESSION['curuser']['usertype'] == "agent"){	
@@ -265,8 +273,7 @@ function init(){
 
 	$panelHTML .="<a href=? onclick=\"document.getElementById('dpnShow').value = 1;showDiallist('',0,0,5,'','','','formDiallistPannel','','');return false;\">".$locate->Translate("My Diallist")."</a><br/>";//<span id=\"sptAddDiallist\" style=\"display:none\">
 	$panelHTML .="<a href=? id=\"agentWorkstat\" name=\"agentWorkstat\" onclick=\"document.getElementById('awsShow').value = 1;agentWorkstat();return false;\">".$locate->Translate("work stat")."</a><br/>";
-	$panelHTML .="<a href=? id=\"knowledge\" name=\"knowledge\" onclick=\"setKnowledge();return false;\">".$locate->Translate("viewknowledge")."</a><br/>";
-
+	$panelHTML .="<a href=? id=\"knowledge\" name=\"knowledge\" onclick=\"setKnowledge();return false;\">".$locate->Translate("view knowledge")."</a><br/>";
 	$panelHTML .= '<a href=? id="sendSMS" name="sendSMS" onclick="SendSmsForm(\''.$config['system']['enable_sms'].'\');return false;">'.$locate->Translate("Send SMS").'</a><br/>';
 
 	if ( !empty($_SESSION['curuser']['privileges']) || $_SESSION['curuser']['usertype'] == "admin" || $_SESSION['curuser']['usertype'] == "groupadmin" ){
@@ -274,8 +281,6 @@ function init(){
 	}
 	
 	$panelHTML .="<a href='login.php'>".$locate->Translate("logout")."</a><br />";
-
-	
 
 	$objResponse->addAssign("divPanel","innerHTML", $panelHTML);
 
@@ -316,6 +321,7 @@ function init(){
 			$objResponse->addScript("document.getElementById('external_crm_form').submit();");
 		}*/
 	}
+
 	$monitorstatus = astercrm::getRecordByID($_SESSION['curuser']['groupid'],'astercrm_accountgroup'); 
 	if ($monitorstatus['monitorforce']) {
 		$objResponse->addAssign("chkMonitor","checked", 'true');
@@ -332,7 +338,7 @@ function init(){
 	}
 
 	//if enabled monitor by astercctools
-	$configstatus = Common::read_ini_file($config['system']['astercc_path'].'/astercc.conf',$asterccConfig);
+	$configstatus = Common::read_ini_file($config['system']['astercc_path'].'/astercc.conf', $asterccConfig);
 	if ($configstatus == -2){
 		$objResponse->addAlert("fail to read ".$config['system']['astercc_path'].'/astercc.conf');		
 	}else{
@@ -351,7 +357,7 @@ function init(){
 *	 check if there's new event happen
 *
 */
-function listenCalls($aFormValues){
+function listenCalls($aFormValues) {
 	global $config,$locate;
 
 	//print_r($_SESSION['ticketNoticeTime']);exit;
@@ -389,8 +395,7 @@ function listenCalls($aFormValues){
 //		}
 //	}
 
-	
-	//根据后台 astercrm_accountgroup里设置的参数 notice_interval 来判断多少分钟的间隔执行 ticket 的提示
+	//astercrm_accountgroup /  notice_interval / ticket
 	if($_SESSION['curuser']['usertype'] == 'agent') {
 		$noticeInterval = $_SESSION['noticeInterval'];
 		//print_r($_SESSION['ticketNoticeTime'].' - '.date("Y-m-d H:i:s",strtotime($_SESSION['ticketNoticeTime']." + $noticeInterval minutes")));exit;
@@ -400,7 +405,7 @@ function listenCalls($aFormValues){
 		if($noticeInterval > 0 && (strtotime($_SESSION['ticketNoticeTime']." + $noticeInterval minutes") <= strtotime(date("Y-m-d H:i:s")))) {
 			$noticeArray = Customer::ticketNoticeValid();
 
-			//更新右上角的mytickets处的数值
+			//mytickets
 			$curTicketmsg = Customer::getTicketInWork();
 			$objResponse->addAssign("curticketMsg", "innerHTML", $curTicketmsg);
 		}
@@ -1298,6 +1303,7 @@ function incomingCalls($myValue){
 }
 
 //	create grid
+// todo : 포탈 메인 리스트 헤더
 function createGrid($start = 0, $limit = 1, $filter = null, $content = null, $order = null, $divName = "grid", $ordering = "",$stype=null){
 	global $locate,$config;
 
@@ -1310,28 +1316,28 @@ function createGrid($start = 0, $limit = 1, $filter = null, $content = null, $or
 		$filter = null;
 	}else{
 		foreach($content as $value){
-			if(trim($value) != ""){  //搜索内容有值
+			if(trim($value) != ""){
 				$flag = "1";
 				break;
 			}
 		}
 		foreach($filter as $value){
-			if(trim($value) != ""){  //搜索条件有值
+			if(trim($value) != ""){
 				$flag2 = "1";
 				break;
 			}
 		}
 		foreach($stype as $value){
-			if(trim($value) != ""){  //搜索方式有值
+			if(trim($value) != ""){
 				$flag3 = "1";
 				break;
 			}
 		}
-		if($flag != "1" || $flag2 != "1"){  //无值
+		if($flag != "1" || $flag2 != "1"){
 			$order = null;
 			$numRows =& Customer::getNumRows();
 			$arreglo =& Customer::getAllRecords($start,$limit,$order);
-		}elseif($flag3 != 1){ //无搜索方式
+		}elseif($flag3 != 1){
 			$order = "id";
 			$numRows =& Customer::getNumRows($filter, $content);
 			$arreglo =& Customer::getRecordsFiltered($start, $limit, $filter, $content, $order);
@@ -1379,7 +1385,7 @@ function createGrid($start = 0, $limit = 1, $filter = null, $content = null, $or
 	$headers[] = $locate->Translate("attitude")."<BR>";//"face";
 	$headers[] = $locate->Translate("create_time")."<BR>";//"Create Time";
 //	$headers[] = $locate->Translate("create_by")."<BR>";//"Create By";
-	$headers[] = $locate->Translate("P")."<BR>";
+	$headers[] = $locate->Translate("priority")."<BR>";
 	if ($config['system']['portal_display_type'] == "note")
 		$headers[] = $locate->Translate("private")."<BR>";
 //	$headers[] = "D";

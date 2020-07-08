@@ -1084,8 +1084,13 @@ class Customer extends astercrm
 		if($_SESSION['curuser']['usertype'] == 'admin') {
 			$sql = "SELECT COUNT(*) FROM ticket_details LEFT JOIN astercrm_account ON astercrm_account.id = ticket_details.assignto WHERE username='".$_SESSION['curuser']['username']."'";
 		} else {
-			$sql = "SELECT COUNT(*) FROM ticket_details LEFT JOIN astercrm_account ON astercrm_account.id = ticket_details.assignto WHERE (username='".$_SESSION['curuser']['username']."' OR (ticket_details.groupid='".$_SESSION['curuser']['groupid']."' and ticket_details.assignto = 0))";
+			$sql = "SELECT COUNT(*) 
+                      FROM ticket_details 
+                           LEFT JOIN astercrm_account ON astercrm_account.id = ticket_details.assignto 
+                     WHERE (username='".$_SESSION['curuser']['username']."' OR (ticket_details.groupid='".$_SESSION['curuser']['groupid']."' 
+                       and ticket_details.assignto = 0))";
 		}
+
 		$panding_sql = $sql." AND status = 'panding'";
 		astercrm::events($panding_sql);
 		$panding_num = & $db->getOne($panding_sql);
@@ -1333,6 +1338,7 @@ class Customer extends astercrm
 		$notice_interval = & $db->getOne($sql);
 		return $notice_interval;
 	}
+
 	function ticketNoticeValid(){
 		global $db;
 		$lastNoticetime = $_SESSION['ticketNoticeTime'];

@@ -1,7 +1,11 @@
 <?php
 require_once ('include/common.class.php');
 //Common::read_ini_file("astercrm.conf.php",$config);
-(new Common)->read_ini_file("astercrm.conf.php",$config);
+//echo $config;
+//(new Common)->read_ini_file("astercrm.conf.php", $config);
+$common = new Common();
+$common->read_ini_file("astercrm.conf.php", $config);
+//echo $common->read_ini_file("astercrm.conf.php", $config);
 
 error_reporting($config['error_report']['error_report_level']);
 

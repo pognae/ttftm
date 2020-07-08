@@ -6,9 +6,9 @@
 
 * Public Functions List
 
-			generateCopyright	生成版权信息HTML代码
-			generateManageNav	生成管理界面导航HTML代码
-			generateTabelHtml	生成表格HTML代码
+			generateCopyright
+			generateManageNav
+			generateTabelHtml
 			read_ini_file
 			write_ini_file
 
@@ -44,9 +44,10 @@ if ($_SESSION['curuser']['country'] != '' ){
 }
 
 
-class Common{
+class Common {
 
-	function generateCopyright($skin){
+    // todo : 구글 에널리스트 삽입할 때 이용
+	function generateCopyright($skin) {
 		global $locate_common;
 
 		$html .='
@@ -65,17 +66,10 @@ class Common{
 //		echo $curcountry;exit;
 		$locate_common=new Localization($curcountry,$curuserlanguage,'common.class');
 /*
-
-
-
-	
 		$html .= "<a href='contact.php' >".$locate_common->Translate("contact_manager")."</a> | ";
-		
 		$html .= "<a href='note.php' >".$locate_common->Translate("note_manager")."</a> | ";
-		
 		$html .= "<a href='diallist.php' >".$locate_common->Translate("diallist_manager")."</a> | ";
-
-*/		
+*/
 		$html = '
 <div class="top_banner">
 	<ul>
@@ -100,7 +94,6 @@ class Common{
 		return $html;
 	}
 
-//	生成显示一个数组内容的HTML代码
 	function generateTabelHtml($aDyadicArray,$thArray = null){
 		if (!is_Array($aDyadicArray))
 			return '';
@@ -142,23 +135,21 @@ class Common{
         if ($f === false) {
             return -2;
         }
+
         // Process all lines from 0 to count($f)
-        for ($i=0; $i<@count($f); $i++)
-        {
+        for ($i=0; $i<@count($f); $i++) {
             $w=@trim($f[$i]);
             $first_char = @substr($w,0,1);
-            if ($w)
-            {
+
+            if ($w) {
                 if ((@substr($w,0,1)=="[") and (@substr($w,-1,1))=="]") {
                     $sec=@substr($w,1,@strlen($w)-2);
                     $num_comments = 0;
                     $num_newline = 0;
-                }
-                else if ((stristr($comment_chars, $first_char) == true)) {
+                } else if ((stristr($comment_chars, $first_char) == true)) {
                     $r[$sec]["Comment_".$num_comments]=$w;
                     $num_comments = $num_comments +1;
-                }                
-                else {
+                } else {
                     // Look for the = char to allow us to split the section into key and value
                     $w=@explode("=",$w);
                     $k=@trim($w[0]);
@@ -172,12 +163,12 @@ class Common{
                     $r[$sec][$k]=$v;
                     
                 }
-            }
-            else {
+            } else {
                 $r[$sec]["Newline_".$num_newline]=$w;
                 $num_newline = $num_newline +1;
             }
         }
+
         return 1;
     }
 
@@ -220,6 +211,5 @@ class Common{
         fclose($handle);
         return 1;
     }
-
 }
 ?>

@@ -32,7 +32,6 @@
  * @license http://www.gnu.org/copyleft/lesser.html#SEC3 LGPL License
  */
  /*
- * 2007-11-9 增加addRowSearchMore()函数,增加搜索选项	by solo
  */
 
 /** \brief Class to generate a table dynamically
@@ -47,9 +46,10 @@ require_once ('localization.class.php');
 
 
 if (isset($_SESSION['curuser']['country'])){
-	$GLOBALS['local_grid']=new Localization($_SESSION['curuser']['country'],$_SESSION['curuser']['language'],'xajaxGrid');
+	$GLOBALS['local_grid']=new Localization($_SESSION['curuser']['country'],$_SESSION['curuser']['language'], 'xajaxGrid');
 }else
-	$GLOBALS['local_grid']=new Localization('en','US','xajaxGrid');
+//	$GLOBALS['local_grid']=new Localization('en','US','xajaxGrid');
+	$GLOBALS['local_grid']=new Localization('ko','KR','xajaxGrid');
 
 
 class ScrollTable{
@@ -146,16 +146,17 @@ class ScrollTable{
 		$this->userexten = $userexten;
 		$this->table = $table; 
 		$this->divName = $divName;
+
 		if ($cdrtype != '') {
 			if($cdrtype == 'diallist_dup'){
-				$this->setSpecFooter('diallist_dup'); //用于agent页面中customer信息页中的mycdr页脚
+				$this->setSpecFooter('diallist_dup'); //agent / customer / mycdr
 			}else{
 				$this->setSpecFooter('mycdr');
 			}
 		}elseif ($userexten != '') {
-			$this->setSpecFooter('diallist');//用于agent页面中customer信息页中的diallist页脚
+			$this->setSpecFooter('diallist');//agent / customer / diallist
 		}elseif ($table == 'monitorrecord' && $customerid!='') {
-			$this->setSpecFooter('monitorrecord');//用于agent页面中customer信息页中的monitorrecord页脚
+			$this->setSpecFooter('monitorrecord');//agent / customer / monitorrecord
 		}elseif($table == 'agents'){
 			//$this->setSpecFooter('agents');
 		}elseif($table == 'ticket_details' && $divName == 'formCurTickets'){
@@ -184,7 +185,7 @@ class ScrollTable{
 	function setHeader($class,$headers,$attribs,$events,$edit=true,$delete=true,$detail=true){
 
 		global $local_grid; 
-		if($_SESSION['curuser']['usertype'] == 'agent' && $this->table != 'diallist') $delete = false; //禁止agent的删除功能
+		if($_SESSION['curuser']['usertype'] == 'agent' && $this->table != 'diallist') $delete = false; //agent
 		$ind = 0;
 		$this->header = '
 		<tr>';
@@ -202,8 +203,8 @@ class ScrollTable{
 			}else{
 				$this->header .= '
 				&nbsp;
-				<img src="skin/default/images/asc.png" title="A&nbsp;->&nbsp;Z" style="cursor: pointer;" '.str_replace("ORDERING","ASC",$events[$ind]).'>
-				<img src="skin/default/images/desc.png" title="Z&nbsp;->&nbsp;A" style="cursor: pointer;" '.str_replace("ORDERING","DESC",$events[$ind]).'>
+					<img src="skin/default/images/asc.png" title="A&nbsp;->&nbsp;Z" style="cursor: pointer;" '.str_replace("ORDERING","ASC",$events[$ind]).'>
+					<img src="skin/default/images/desc.png" title="Z&nbsp;->&nbsp;A" style="cursor: pointer;" '.str_replace("ORDERING","DESC",$events[$ind]).'>
 				</th>';
 			}
 			$ind++;
@@ -255,7 +256,6 @@ class ScrollTable{
 	* @return none
 	*
 	*/
-
 	function addRow($table,$arr,$edit=true,$delete=true,$detail=true,$divName="grid",$fields=null,$privilege=null,$styleStr = "",$forPortal = ""){
 		global $local_grid;
 		
@@ -367,7 +367,6 @@ class ScrollTable{
 	* @return none
 	*
 	*/
-
 	function addRow2($table,$arr){
 
 	   $row = '<tr class="'.$this->rowStyle.'" >';
@@ -383,7 +382,6 @@ class ScrollTable{
 		$this->rows .= $row;
 
 		if($this->rowStyle == "row0") $this->rowStyle = "row1"; else $this->rowStyle = "row0";
-
 	}
 
 
@@ -397,7 +395,6 @@ class ScrollTable{
 	* @return none
 	*
 	*/
-
 	function addRowSearch($table,$fieldsFromSearch,$fieldsFromSearchShowAs, $withNewButton = 1){
 		global $local_grid;		$ind = 0;
 		$this->search = '
@@ -433,7 +430,6 @@ class ScrollTable{
 	/*
 	* customer addRowSearchMore
 	*/
-    //增加搜索选项
 	function addRowSearchMore($table,$fieldsFromSearch,$fieldsFromSearchShowAs,$filter,$content,$start,$limit, $withNewButton = 1,$withDelButton=false,$typeFromSearch = null,$typeFromSearchShowAs = null,$stype = null,$radioFieldVal = null){
 		global $local_grid;
 		$ind = 0;
@@ -673,16 +669,23 @@ class ScrollTable{
 
 	/**
 	* Add the footer of the table (Grid), that its contains the record information such as number of records, previos, next and final,  totals records, etc. Each one with its link when it is posible.
-	*
+	* 페이지 네비게이션
 	*/
-
-	function setFooter(){
+	function setFooter() {
 		global $local_grid;
+
 		$next_rows = $this->start + $this->limit;
 		$previos_rows = $this->start - $this->limit;
-		if($next_rows>$this->numRows) $next_rows = $this->numRows;
-		if($previos_rows<0)$previos_rows = 0;
-		if($this->numRows < 1) $this->start = -1;
+		if($next_rows>$this->numRows) {
+			$next_rows = $this->numRows;
+		}
+		if($previos_rows<0) {
+			$previos_rows = 0;
+		}
+		if($this->numRows < 1) {
+			$this->start = -1;
+		}
+
 		$this->footer = '</table>';
 		$this->footer .= '
 		<table class="adminlist">
@@ -713,7 +716,8 @@ class ScrollTable{
 					</span>
 					<span class="pagenav">';
 
-					$this->footer .= ' [ ' . ($this->start+1) . ' / ' . $next_rows .$local_grid->Translate("total"). $this->numRows .' ] ';
+//					$this->footer .= ' [ ' . ($this->start+1) . ' / ' . $next_rows .$local_grid->Translate("total"). $this->numRows .' ] ';
+					$this->footer .= ' [ ' . ($this->start+1) . ' / ' . $next_rows .' ] ';
 
 					$this->footer .= '
 					</span>

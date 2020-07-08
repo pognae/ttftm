@@ -47,15 +47,11 @@ require_once('login.common.php');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRM Login</title>
+    <title><?php echo $locate->Translate("title")?></title>
 
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="skin/default/css/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
     <link rel="stylesheet" href="skin/default/css/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="skin/default/css/adminlte.css">
 
     <?php $xajax->printJavascript('include/'); ?>
@@ -64,7 +60,7 @@ require_once('login.common.php');
 		*  login function, launched when user click login button
 		*
 		* @param null
-		*	@return false
+		* @return false
 		*/
 		function loginSignup()
 		{
@@ -103,11 +99,10 @@ require_once('login.common.php');
 </head>
 
 <body class="hold-transition login-page">
-<input type="hidden" name="locate" id="locate" value="ko_KR">
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="../../index2.html"><b>TTF </b>TM</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -118,7 +113,7 @@ require_once('login.common.php');
                 <div class="text01" id="logintip"></div>
 
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="ID" name="username" id="username">
+                    <input type="text" class="form-control" placeholder="ID" name="username" id="username" value="test">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -126,7 +121,7 @@ require_once('login.common.php');
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                    <input type="password" class="form-control" placeholder="Password" name="password" id="password" value="1111">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -134,28 +129,35 @@ require_once('login.common.php');
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="col-8">
                         <div class="icheck-primary">
+                            <!--
                             <input type="checkbox" value="forever" id="rememberme" name="rememberme">
                             <label for="remember">
                                 Remember Me
                             </label>
+                            -->
                         </div>
                     </div>
+
                     <!-- /.col -->
                     <div class="col-4">
+                        <input type="hidden" name="locate" id="locate" value="ko_KR">
                         <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
 
-            <p class="mb-1">
-                <a href="forgot-password.html">I forgot my password</a>
+            <p class="mb-1 small">
+                <a href="forgot-password.html"><?php echo $locate->Translate("i_forgot_my_password")?></a>
             </p>
-            <p class="mb-0">
+            <!--
+            <p class="mb-0 small">
                 <a href="register.html" class="text-center">Register a new membership</a>
             </p>
+            -->
         </div>
         <!-- /.login-card-body -->
     </div>

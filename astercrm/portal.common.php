@@ -94,12 +94,17 @@ if (!isset($_SESSION['curid']) && $_SESSION['curid'] =='' ) $_SESSION['curid']=0
 require_once ('include/localization.class.php');
 require_once ("include/xajax.inc.php");
 
-
-//$GLOBALS['locate']=new Localization($_SESSION['curuser']['country'],$_SESSION['curuser']['language'],'portal');
-if (isset($_SESSION['curuser']['country'])){
-    $GLOBALS['locate']=new Localization($_SESSION['curuser']['country'],$_SESSION['curuser']['language'],'xajaxGrid');
-}else
-    $GLOBALS['locate']=new Localization('ko','KR','portal');
+$GLOBALS['locate']=new Localization($_SESSION['curuser']['country'],$_SESSION['curuser']['language'],'portal');
+//echo $_SESSION['curuser']['country'];
+/*
+if (isset($_SESSION['curuser']['country'])) {
+    $GLOBALS['locate'] = new Localization($_SESSION['curuser']['country'], $_SESSION['curuser']['language'], 'portal');
+    echo "@@@@@@@@@@@@@@@@@@";
+} else {
+    $GLOBALS['locate'] = new Localization('ko', 'KR', 'portal');
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!";
+}
+*/
 
 
 $xajax = new xajax("portal.server.php");

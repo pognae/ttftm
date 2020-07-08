@@ -49,13 +49,17 @@ function init(){
 	global $locate;
 
 	$objResponse = new xajaxResponse();
+	$common = new Common();
 
-	$objResponse->addAssign("divNav","innerHTML",common::generateManageNav($skin,$_SESSION['curuser']['country'],$_SESSION['curuser']['language']));
+//	$objResponse->addAssign("divNav","innerHTML", Common::generateManageNav($skin,$_SESSION['curuser']['country'],$_SESSION['curuser']['language']));
+	$objResponse->addAssign("divNav","innerHTML", $common->generateManageNav($skin,$_SESSION['curuser']['country'],$_SESSION['curuser']['language']));
 	$objResponse->addAssign("btnDialed","value",$locate->Translate("Dialed"));
 	$objResponse->addAssign("btnCampaign","value",$locate->Translate("Campaign"));
-	$objResponse->addAssign("divCopyright","innerHTML",common::generateCopyright($skin));
-
+//	$objResponse->addAssign("divCopyright","innerHTML", Common::generateCopyright($skin));
+	$objResponse->addAssign("divCopyright","innerHTML", $common->generateCopyright($skin));
+echo "111111111";
 	$objResponse->addScript("xajax_showGrid(0,".ROWSXPAGE.",'','','')");
+
 	return $objResponse;
 }
 

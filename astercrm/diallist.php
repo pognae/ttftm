@@ -29,9 +29,11 @@ require_once('diallist.common.php');
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
+        <title>ddddd</title>
 		<?php $xajax->printJavascript('include/'); ?>
 		<LINK href="skin/default/css/style.css" type=text/css rel=stylesheet>
 		<meta http-equiv="Content-Language" content="utf-8" />
+
 		<SCRIPT LANGUAGE="JavaScript">
 		<!--
 		function init(){
@@ -44,7 +46,7 @@ require_once('diallist.common.php');
 			xajax_export();
 		}
 
-		function  addOption(objId,optionVal,optionText)  {
+		function addOption(objId,optionVal,optionText)  {
 			objSelect = document.getElementById(objId);
 			var _o = document.createElement("OPTION");
 			_o.text = optionText;
@@ -61,7 +63,6 @@ require_once('diallist.common.php');
 			groupid = document.getElementById("groupid").value;
 			if (groupid == '')
 				return;
-			//清空campaignid
 			document.getElementById("campaignid").options.length=0
 			xajax_setCampaign(groupid);
 		}
@@ -83,24 +84,25 @@ require_once('diallist.common.php');
 		<script language="JavaScript" src="js/dhtmlgoodies_calendar.js"></script>
 		<LINK href="js/dhtmlgoodies_calendar.css" type=text/css rel=stylesheet>
 
-	<LINK href="skin/default/css/dragresize.css" type=text/css rel=stylesheet>
-	<LINK href="skin/default/css/style.css" type=text/css rel=stylesheet>
+        <LINK href="skin/default/css/dragresize.css" type=text/css rel=stylesheet>
+        <LINK href="skin/default/css/style.css" type=text/css rel=stylesheet>
 	</head>
+
 	<body onload="init();">
 	<div id="divNav"></div>
 
 	<div id="divActive" name="divActive">
-		<input type="button" value="" id="btnDialed" name="btnDialed" onClick="window.location='dialedlist.php';" />
-		<input type="button" value="" id="btnCampaign" name="btnCampaign" onClick="window.location='campaign.php';" />
-		<input type="button" value="<?echo $locate->Translate("Worktime packages")?>" id="btnWorktime" name="btnWorktime" onClick="window.location='worktimepackages.php';" />
-		<input type="button" value="<?echo $locate->Translate("DNC list")?>" id="btnDNC" name="btnDNC" onClick="window.location='dnc.php';" />
+		<input type="button" value="<?php echo $locate->Translate("dialed list")?>" id="btnDialed" name="btnDialed" onClick="window.location='dialedlist.php';" />
+		<input type="button" value="<?php echo $locate->Translate("campaign")?>" id="btnCampaign" name="btnCampaign" onClick="window.location='campaign.php';" />
+		<input type="button" value="<?php echo $locate->Translate("Worktime packages")?>" id="btnWorktime" name="btnWorktime" onClick="window.location='worktimepackages.php';" />
+		<input type="button" value="<?php echo $locate->Translate("DNC list")?>" id="btnDNC" name="btnDNC" onClick="window.location='dnc.php';" />
 	</div>
 	<table width="100%" border="0" style="background: #F9F9F9; padding: 0px;">
 		<tr>
 			<td style="padding: 0px;">
 				<fieldset>
-				<input type="button" value="<?echo $locate->Translate("Check Duplicates")?>" name="btnRecycle" id="btnRecycle" onclick="xajax_checkDuplicates(xajax.getFormValues('searchForm'));">
-				<!--<input type="button" value="<?echo $locate->Translate("Clear Duplicates")?>" name="btnRecycle" id="btnRecycle" onclick="recycle();">-->
+                    <input type="button" value="<?php echo $locate->Translate("Check Duplicates")?>" name="btnRecycle" id="btnRecycle" onclick="xajax_checkDuplicates(xajax.getFormValues('searchForm'));">
+                    <!--<input type="button" value="<?php echo $locate->Translate("Clear Duplicates")?>" name="btnRecycle" id="btnRecycle" onclick="recycle();">-->
 		
 					<div id="grid" align="center"> </div>
 					<div id="msgZone" name="msgZone" align="left"> </div>

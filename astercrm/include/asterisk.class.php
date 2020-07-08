@@ -3,12 +3,6 @@
 * asterisk.class.php
 * astercrm asterisk class
 
-* Revision 0.0456  2007/11/9 10:33:00  modified by solo
-* Desc: change .abc to .call
-
-* Revision 0.0451  2007/10/24 20:33:00  modified by solo
-* Desc: add function sendCall
-
 ********************************************************************************/
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'phpagi-asmanager.php');
 

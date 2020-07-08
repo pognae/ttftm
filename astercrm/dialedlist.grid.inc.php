@@ -24,9 +24,10 @@
 * Desc: page created
 
 ********************************************************************************/
-require_once 'db_connect.php';
-require_once 'dialedlist.common.php';
-require_once 'include/astercrm.class.php';
+require_once ('db_connect.php');
+require_once ('dialedlist.common.php');
+require_once ('include/astercrm.class.php');
+
 
 class Customer extends astercrm
 {
@@ -39,10 +40,17 @@ class Customer extends astercrm
 	*	@param $order 	(string) Campo por el cual se aplicar&aacute; el orden en la consulta SQL.
 	*	@return $res 	(object) Objeto que contiene el arreglo del resultado de la consulta SQL.
 	*/
-	function &getAllRecords($start, $limit, $order = null, $creby = null){
+	function &getAllRecords($start, $limit, $order = null, $creby = null) {
 		global $db;
 
-		$sql = "SELECT campaigndialedlist.*, groupname, campaignname,customer.customer FROM campaigndialedlist LEFT JOIN astercrm_accountgroup ON astercrm_accountgroup.groupid = campaigndialedlist.groupid LEFT JOIN campaign ON campaign.id = campaigndialedlist.campaignid LEFT JOIN customer ON customer.id = campaigndialedlist.customerid ";
+		$sql = "SELECT campaigndialedlist.*
+                     , groupname
+                     , campaignname
+                     , customer.customer 
+                  FROM campaigndialedlist 
+                       LEFT JOIN astercrm_accountgroup ON astercrm_accountgroup.groupid = campaigndialedlist.groupid 
+                       LEFT JOIN campaign ON campaign.id = campaigndialedlist.campaignid 
+                       LEFT JOIN customer ON customer.id = campaigndialedlist.customerid ";
 
 		if ($_SESSION['curuser']['usertype'] == 'admin'){
 			$sql .= " ";

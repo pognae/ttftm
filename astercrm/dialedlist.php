@@ -30,13 +30,13 @@ require_once('dialedlist.common.php');
 	<head>
 		<?php $xajax->printJavascript('include/'); ?>
 		<?php	
-				$get = '';
-				//print_r($_GET);exit;
-				if($_GET['action'] != '' ){
-					foreach($_GET as $key => $value){
-						$get .= $key.':'.$value.',';
-					}
-				}
+            $get = '';
+            //print_r($_GET);exit;
+            if($_GET['action'] != '' ){
+                foreach($_GET as $key => $value){
+                    $get .= $key.':'.$value.',';
+                }
+            }
 		?>
 		<meta http-equiv="Content-Language" content="utf-8" />
 		<SCRIPT LANGUAGE="JavaScript">

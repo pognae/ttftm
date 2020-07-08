@@ -1540,7 +1540,7 @@ Class astercrm extends PEAR{
 	*	@return $row	(array)	Arreglo que contiene los datos del registro resultante de la consulta SQL.
 	*/
 	
-	function &getRecordByID($id,$table){
+	function &getRecordByID($id, $table){
 		global $db;
 		
 		$query = "SELECT * FROM $table "
@@ -4307,7 +4307,9 @@ Class astercrm extends PEAR{
 	function &getAllSpeedDialRecords(){
 		global $db;
 
-		$sql = "SELECT number,description FROM speeddial ";
+		$sql = "SELECT number
+                     , description 
+                  FROM speeddial ";
 
 		if ($_SESSION['curuser']['usertype'] == 'admin'){
 			$sql .= " ";

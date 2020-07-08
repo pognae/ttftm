@@ -142,13 +142,11 @@ $clientDst = $_REQUEST['clientdst'];
 			xajax.$('processingMessage').style.display = 'none';
 		}
 
-		//启用加载进度条
 		function ShowProcessingDiv(){
 			xajax.loadingFunction = showProcessingMessage();
 			xajax.doneLoadingFunction = hideProcessingMessage;
 		}
 
-		//长连接这取消加载进度条,调用此函数
 		function CancelLoading(){
 			xajax.loadingFunction = function(){xajax.$('processingMessage').style.display = 'none';};
 			xajax.doneLoadingFunction = function(){xajax.$('processingMessage').style.display = 'none';};
@@ -272,7 +270,7 @@ $clientDst = $_REQUEST['clientdst'];
 			xajax_showSurvey(surveyid);
 		}
 
-		function init(){
+		function init() {
 			xajax_init();
 			//ShowProcessingDiv();
 			//setTimeout(function(){
@@ -969,89 +967,75 @@ if ($config['system']['enable_external_crm'] == false && $config['google-map']['
 
 		<table width="100%" border="0" style="background: #F9F9F9; padding: 0px;">
 			<tr>
-				<td style="padding: 0px;">
+                <td style="padding: 0px;width: 30%;">
+                    <fieldset>
+                        <div id="formDiv"  class="formDiv drsElement" style="left: 450px; top: 50px;width: 510px"></div>
+                        <div id="formAgentWordStatDiv"  class="formDiv drsElement" style="left: 110px; top: 32px;width: 240px;z-index: 999;" ></div>
+                        <div id="surveyDiv"  class="formDiv drsElement" style="left: 20px; top: 20px;width: 500px; z-index: 999;"></div>
+                        <div id="formCustomerInfo" class="formDiv drsElement" style="left: 20px; top: 50px;width: 650px"></div>
+                        <div id="formContactInfo" class="formDiv drsElement" style="left: 20px; top: 330px;width: 600px"></div>
+                        <div id="formCdr" class="formDiv drsElement" style="left: 20px; top: 330px; width: 900px"></div>
+                        <div id="formRecentCdr" class="formDiv drsElement" style="left: 20px; top: 30px; width:750px"></div>
+                        <div id="formRecords" class="formDiv drsElement" style="left: 20px; top: 330px; width: 900px;height:auto"></div>
+                        <div id="formDiallist" class="formDiv drsElement" style="left: 20px; top: 330px; width: 850px"></div>
+                        <div id="formaddDiallistInfo"  class="formDiv drsElement"  style="left: 450px; top: 50px;z-index:210"></div>
+                        <div id="formeditDiallistInfo"  class="formDiv drsElement" style="left: 450px; top: 50px;"></div>
+                        <div id="formNoteInfo" class="formDiv  drsElement" style="left: 450px; top: 330px;width: 500px;z-index:5;"></div>
+                        <div id="formWorkoff" class="formDiv  drsElement" style="left: 300px; top: 0px; z-index: 999; "></div>
+                        <div id="formEditInfo" class="formDiv drsElement" style="left: 450px; top: 50px;width: 500px"></div>
+                        <div id="formplaymonitor"  class="formDiv drsElement" style="left: 450px; top: 50px;width: 350px; z-index:999"></div>
+                        <div id="formDiallistPopup"  class="formDiv drsElement" style="left: 450px; top: 50px;width: 350px; z-index:201"></div>
+                        <div id="formDiallistPannel"  class="formDiv drsElement" style="left: 150px; top: 130px;width: 850px; z-index:201;"></div>
+                        <div id="formKnowlagePannel"  class="formDiv drsElement" style="left: 380px; top: 30px;width: 600px; z-index:1"></div>
+                        <div id="grid" align="center"></div>
+                        <div id="msgZone" name="msgZone" align="left"> </div>
+                        <div id="external_crmDiv" style="display:none;"></div>
+                        <div id="external_crm_openNewDiv" style="display:none;"></div>
+                        <div id="formTicketDetailDiv"  class="formDiv drsElement" style="left: 600px; top: 300px;width: 490px"></div>
+                        <div id="formMyTickets"  class="formDiv drsElement" style="left: 500px; top: 150px;width: 800px"></div>
+                        <div id="formCurTickets"  class="formDiv drsElement" style="left: 300px; top: 300px;width: 800px"></div>
+                        <div id="formSendSMS"  class="formDiv drsElement" style="left: 300px; top: 200px;width: 500px"></div>
+                        <div id="formHighestProrityNote"  class="formDiv drsElement" style="left: 300px; top: 200px;width: 500px"></div>
+                        <div id="formLastestNote"  class="formDiv drsElement" style="left: 350px; top: 150px;width: 500px"></div>
+                        <div id="formSubordinateTicketDiv"  class="formDiv drsElement" style="left: 200px; top: 200px;width:800px;"></div>
+                        <div id="formRequiredReasionDiv"  class="formDiv drsElement" style="left: 250px; top: 50px;width:500px;"></div>
+                        <div id="formdAddSechedualaraDiv"  class="formDiv drsElement" style="left: 300px; top: 200px;width:500px;z-index:800"></div>
+                    </fieldset>
+                </td>
+                <td style="padding: 0px;width: 70%">
 					<fieldset>
-						<div id="formDiv"  class="formDiv drsElement" style="left: 450px; top: 50px;width: 510px"></div>
-						<div id="formAgentWordStatDiv"  class="formDiv drsElement" style="left: 110px; top: 32px;width: 240px;z-index: 999;" ></div>
-						<div id="surveyDiv"  class="formDiv drsElement" style="left: 20px; top: 20px;width: 500px; z-index: 999;"></div>
-						<div id="formCustomerInfo" class="formDiv drsElement" style="left: 20px; top: 50px;width: 650px"></div>
-						<div id="formContactInfo" class="formDiv drsElement" style="left: 20px; top: 330px;width: 600px"></div>
-						<div id="formCdr" class="formDiv drsElement" style="left: 20px; top: 330px; width: 900px"></div>
-						<div id="formRecentCdr" class="formDiv drsElement" style="left: 20px; top: 30px; width:750px"></div>
-						<div id="formRecords" class="formDiv drsElement"
-							style="left: 20px; top: 330px; width: 900px;height:auto"></div>
-						<div id="formDiallist" class="formDiv drsElement"
-							style="left: 20px; top: 330px; width: 850px"></div>
-						<div id="formaddDiallistInfo"  class="formDiv drsElement" 
-							style="left: 450px; top: 50px;z-index:210"></div>
-						<div id="formeditDiallistInfo"  class="formDiv drsElement" 
-							style="left: 450px; top: 50px;"></div>
-						<div id="formNoteInfo" class="formDiv  drsElement"
-							style="left: 450px; top: 330px;width: 500px;z-index:5;"></div>
-						<div id="formWorkoff" class="formDiv  drsElement"
-							style="left: 300px; top: 0px; z-index: 999; "></div>
-						<div id="formEditInfo" class="formDiv drsElement"
-							style="left: 450px; top: 50px;width: 500px"></div>
-						<div id="formplaymonitor"  class="formDiv drsElement" 
-							style="left: 450px; top: 50px;width: 350px; z-index:999"></div>
-						<div id="formDiallistPopup"  class="formDiv drsElement" 
-							style="left: 450px; top: 50px;width: 350px; z-index:201"></div>
-						<div id="formDiallistPannel"  class="formDiv drsElement" 
-							style="left: 150px; top: 130px;width: 850px; z-index:201;"></div>
-						<div id="formKnowlagePannel"  class="formDiv drsElement" 
-							style="left: 380px; top: 30px;width: 600px; z-index:1"></div>
-						<div id="grid" align="center"></div>
-						<div id="msgZone" name="msgZone" align="left"> </div>
-						<div id="external_crmDiv" style="display:none;"></div>
-						<div id="external_crm_openNewDiv" style="display:none;"></div>
-						<div id="formTicketDetailDiv"  class="formDiv drsElement" 
-							style="left: 600px; top: 300px;width: 490px"></div>
-						<div id="formMyTickets"  class="formDiv drsElement" 
-							style="left: 500px; top: 150px;width: 800px"></div>
-						<div id="formCurTickets"  class="formDiv drsElement" 
-							style="left: 300px; top: 300px;width: 800px"></div>
-						<div id="formSendSMS"  class="formDiv drsElement" 
-							style="left: 300px; top: 200px;width: 500px"></div>
-						<div id="formHighestProrityNote"  class="formDiv drsElement" 
-							style="left: 300px; top: 200px;width: 500px"></div>
-						<div id="formLastestNote"  class="formDiv drsElement" 
-							style="left: 350px; top: 150px;width: 500px"></div>
-						<div id="formSubordinateTicketDiv"  class="formDiv drsElement" 
-						style="left: 200px; top: 200px;width:800px;"></div>
-						<div id="formRequiredReasionDiv"  class="formDiv drsElement" 
-						style="left: 250px; top: 50px;width:500px;"></div>
-						<div id="formdAddSechedualaraDiv"  class="formDiv drsElement" 
-						style="left: 300px; top: 200px;width:500px;z-index:800"></div>
+                        <!-- todo : 콜 상세 입력부분
+                        <div id="calldetailDiv"  class="calldetailDiv drsElement" style="left: 450px; top: 50px;width: 510px"></div>
+                        -->
 					</fieldset>
 				</td>
 			</tr>
 		</table>
-	<div id="divCrm" name="divCrm"></div>
-	<div id="divPanel" name="divPanel" class="divPanel"></div>
 
-	<div id="divGetMsgInCampaignP" class="drsElement drsMoveHandle" style="left: 500px; top: 20px; position: absolute;z-index:2;text-align: center;border:1px dashed #EAEAEA;color:#006600; background:#fbfbfb;"> 
-		<div width="100%" class="divGetMsgInCampaigntitle"><img src="skin/default/images/movedesc.png" onclick="if(xajax.$('divGetMsgInCampaign').style.display!='none'){xajax.$('divGetMsgInCampaign').style.display='none';this.src='skin/default/images/moveasc.png';xajax.$('divGetMsgInCampaignP').style.height='20px';}else{xajax.$('divGetMsgInCampaign').style.display='';this.src='skin/default/images/movedesc.png';xajax.$('divGetMsgInCampaignP').style.height='';}"><?php echo $locate->Translate("Campaign Pannel")?>(<?php echo $locate->Translate("Queue")?>)</div>
-		<div width="100%" id="divGetMsgInCampaign"></div>
-	</div>
+        <div id="divCrm" name="divCrm"></div>
+        <div id="divPanel" name="divPanel" class="divPanel"></div> <!-- 메뉴 -->
 
-    <div class="divExtension drsElement drsMoveHandle" 
-		style="left: 760px; top: 20px;	width: 160px;
+        <div id="divGetMsgInCampaignP" class="drsElement drsMoveHandle" style="left: 500px; top: 20px; position: absolute;z-index:2;text-align: center;border:1px dashed #EAEAEA;color:#006600; background:#fbfbfb;">
+            <div width="100%" class="divGetMsgInCampaigntitle"><img src="skin/default/images/movedesc.png" onclick="if(xajax.$('divGetMsgInCampaign').style.display!='none'){xajax.$('divGetMsgInCampaign').style.display='none';this.src='skin/default/images/moveasc.png';xajax.$('divGetMsgInCampaignP').style.height='20px';}else{xajax.$('divGetMsgInCampaign').style.display='';this.src='skin/default/images/movedesc.png';xajax.$('divGetMsgInCampaignP').style.height='';}"><?php echo $locate->Translate("Campaign Pannel")?>(<?php echo $locate->Translate("Queue")?>)</div>
+            <div width="100%" id="divGetMsgInCampaign"></div>
+        </div>
+
+        <div class="divExtension drsElement drsMoveHandle" style="left: 760px; top: 20px;	width: 160px;
 				position: absolute; 
 				z-index:0;
 				text-align: center; 
 				border: 1px dashed #EAEAEA;    
 				color:#006600; background:#fbfbfb;">	
 				
-	<div class="divExtensiontitle">
-        <img src="skin/default/images/movedesc.png" onclick="if(xajax.$('divExtension').style.display!='none'){xajax.$('divExtension').style.display='none';this.src='skin/default/images/moveasc.png'}else{xajax.$('divExtension').style.display='';this.src='skin/default/images/movedesc.png'}"><?php echo $locate->Translate("Group Pannel")?>
-    </div>
-	<div id="divExtension" name="divExtension" >
+        <div class="divExtensiontitle">
+            <img src="skin/default/images/movedesc.png" onclick="if(xajax.$('divExtension').style.display!='none'){xajax.$('divExtension').style.display='none';this.src='skin/default/images/moveasc.png'}else{xajax.$('divExtension').style.display='';this.src='skin/default/images/movedesc.png'}"><?php echo $locate->Translate("Group Pannel")?>
+        </div>
+        <div id="divExtension" name="divExtension" >
 
-	</div>
+        </div>
 	</div>
 
-	<div id="divMap" class="drsElement" 
-		style="left: 450px; top: 20px;	width: 300px;
+	<div id="divMap" class="drsElement" style="left: 450px; top: 20px;	width: 300px;
 					position: absolute; 
 					z-index:0;
 					text-align: center; 
@@ -1066,21 +1050,33 @@ if ($config['system']['enable_external_crm'] == false && $config['google-map']['
 			</tr>
 			<tr>
 				<td>
-					<fieldset><legend><?php echo $locate->Translate("Google Map")?></legend>
-					<div id="map" style="width: 300px; height: 300px"></div>
+					<fieldset>
+                        <legend><?php echo $locate->Translate("Google Map")?></legend>
+					    <div id="map" style="width: 300px; height: 300px"></div>
 					</fieldset>
 				</td>
 			</tr>
 		</table>
 	</div>
-	<div id='SmartMatchDiv' style="position:absolute;z-index:99999; left:0px;visibility:hidden;width: 320px;"><table width="100%" border="1" align="center" class="adminlist">
-			<tr>
-				<th align="right" valign="center" >
-					<img src="skin/default/images/close.png" onClick='closeSmartMatch();return false;' title="Close Window" style="cursor: pointer; height: 16px;">
-				</th>
-			</tr>			
-			<tr><td><fieldset><legend><?php echo $locate->Translate("which customer has similar number"); ?>:</legend><div id="smartMsgDiv" style="width: 280px;height:160px;OVERFLOW-y:auto;OVERFLOW-x:auto;"></div></fieldset></td></tr></table>
+
+	<div id='SmartMatchDiv' style="position:absolute;z-index:99999; left:0px;visibility:hidden;width: 320px;">
+        <table width="100%" border="1" align="center" class="adminlist">
+        <tr>
+            <th align="right" valign="center" >
+                <img src="skin/default/images/close.png" onClick='closeSmartMatch();return false;' title="Close Window" style="cursor: pointer; height: 16px;">
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend><?php echo $locate->Translate("which customer has similar number"); ?>:</legend>
+                    <div id="smartMsgDiv" style="width: 280px;height:160px;OVERFLOW-y:auto;OVERFLOW-x:auto;"></div>
+                </fieldset>
+            </td>
+        </tr>
+        </table>
 	</div>
+
 	<div id='ticketNoticDiv' style="position:absolute;z-index:99999; left:0px;visibility:hidden;width: 320px;">
 		<table width="100%" border="1" align="center" class="adminlist">
 			<tr>
