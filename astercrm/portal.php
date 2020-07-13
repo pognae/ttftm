@@ -1106,7 +1106,6 @@ if ($config['system']['enable_external_crm'] == false && $config['google-map']['
         //(s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
         //(s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
-        //以下进行测试
         if (Sys.ie == '7.0') xajax.$('divGetMsgInCampaignP').style.right = 250;//document.write('IE: ' + Sys.ie);
         //if (Sys.firefox) document.write('Firefox: ' + Sys.firefox);
         //if (Sys.chrome) document.write('Chrome: ' + Sys.chrome);

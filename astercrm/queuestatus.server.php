@@ -5,15 +5,12 @@
 * Function Desc
 	show sip status and active channels
 
-* 功能描述
-	提供SIP分机状态信息和正在进行的通道
-
 * Function Desc
 
 	showGrid
-	init				初始化页面元素
-	showStatus			显示sip分机状态信息
-	showChannelsInfo	显示激活的通道信息
+	init
+	showStatus
+	showChannelsInfo
 
 * Revision 0.045  2007/10/18 15:38:00  last modified by solo
 * Desc: comment added
@@ -38,13 +35,15 @@ function init(){
 
 	$myAsterisk = new Asterisk();
 	$myAsterisk->config['asmanager'] = $config['asterisk'];
+//	echo "config['asterisk']:", $config['asterisk'];
+
 	$res = $myAsterisk->connect();
 	if (!$res){
 		$objResponse->addAssign("AMIStatudDiv", "innerHTML", $locate->Translate("AMI_connection_failed"));
 	}
 	$objResponse->addAssign("msgChannelsInfo", "value", $locate->Translate("msgChannelsInfo"));
 	
-	////set time intervals of check system status
+	//set time intervals of check system status
 	$check_interval = 2000;
 	if ( is_numeric($config['system']['status_check_interval']) ) {
 		$check_interval = $config['system']['status_check_interval'] * 1000;

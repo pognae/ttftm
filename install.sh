@@ -71,7 +71,7 @@ done
 if [ "$allbydefault" == "1" ];then
 	dbhost='127.0.0.1'
 	dbport='3306'
-	dbname='astercc'
+	dbname='astercc01'
 	dbbin='/usr/bin'
 	astserver='127.0.0.1'
 	amiport='5038'

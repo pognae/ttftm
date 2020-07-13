@@ -1362,7 +1362,7 @@ CREATE TABLE `qagent` (
   agent_id int(6) NOT NULL auto_increment,
   agent varchar(40) NOT NULL default '',
   PRIMARY KEY  (agent_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET utf8 DEFAULT COLLATE utf8_general_ci;
 
 ##
 ## Table structure for table `qevent`
